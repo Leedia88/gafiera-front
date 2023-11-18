@@ -4,10 +4,11 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import './App.css';
 import Agenda from './components/Agenda/Agenda';
 import LogInForm from './components/LogIn/LogInForm';
-import LogIn from './components/LogIn';
+import LogIn from './components/LogIn/LogIn';
 import NewEventForm from './components/NewEventForm';
 import NavbarTop from './layout/HeaderAndFooter/NavbarTop';
 import HomePage from './layout/HomePage/HomePage';
+import { UserContext, UserProvider } from './components/LogIn/UserDetails';
 
 
 
@@ -15,24 +16,36 @@ function App() {
 
   // const [events, setEvents] = useState(
   //   [
-  //  {rowNumber : 1, rowDate : "1st September", rowDescription : "Samba de Gafiera Workshop", rowOrganizer : "Ana Flavia"},
-  //  {rowNumber : 2, rowDate : "30th September", rowDescription : "Samba de Gafiera Workshop", rowOrganizer : "Marcelo Chagas"},
-  //  {rowNumber : 3, rowDate : "27th October", rowDescription : "Samba de Gafiera Class", rowOrganizer : "Marcelo Chagas"}
-  //  ])
+  //     {
+  //         "id": 1, "title": "Concert Gafiera Live","description": "Description 1.","date": "2023-09-06","duration": null,"category": {"id": 1,"name": "Class"},"owner": {"id": 1,"name": "Chagas","lastName": "Marcelo","email": "mc@g.com","password": "azerty" }, "participants": []
+  //     },
+        // { "id": 2, "title": "Concert Gafiera Live", "description": "Description 2.", "date": "2023-12-16", "duration": null, "category": {     "id": 1,     "name": "Class" }, "owner": {     "id": 1,     "name": "Chagas",     "lastName": "Marcelo",     "email": "mc@g.com",     "password": "azerty" }, "participants": []
+  //     },
+  //     { "id": 3, "title": "Concert Gafiera Live", "description": "Description 3", "date": "2023-06-16", "duration": null, "category": {     "id": 1,     "name": "Class" }, "owner": {     "id": 1,     "name": "Chagas",     "lastName": "Marcelo",     "email": "mc@g.com",     "password": "azerty" }, "participants": []
+  //     },
+  //     { "id": 4, "title": "Concert Gafiera Live", "description": "Description 4", "date": "2023-10-06", "duration": null, "category": {     "id": 1,     "name": "Class" }, "owner": {     "id": 1,     "name": "Chagas",     "lastName": "Marcelo",     "email": "mc@g.com",     "password": "azerty" }, "participants": []
+  //     },
+  //     { "id": 5, "title": "Concert Gafiera Live", "description": "Description 5", "date": "2023-11-16", "duration": null, "category": {     "id": 1,     "name": "Class" },"owner": {     "id": 1,     "name": "Chagas",     "lastName": "Marcelo",     "email": "mc@g.com",     "password": "azerty" }, "participants": []
+  //     }
+  // ]
+  //  )
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState([]);
 
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState(null)
     useEffect(() => {fetchEvents()}, [])
 
+  const isConnected = user !== null;
+  
   const backUrl = "http://localhost:8081/api/events";
 
   async function fetchEvents(){
     fetch("http://localhost:8081/api/events",
     // {mode: 'no-cors'} 
-  //   {method: "GET"
-  //   // headers : {
-  //   //   'Access-Control-Allow-Origin': '*
+  //   {method: "GET",
+  //   headers : {
+  //     'Access-Control-Allow-Origin': '*'
+  //     }
   // }
   )
         .then(response =>response.json())
@@ -42,6 +55,29 @@ function App() {
             setEvents(data)
         })
   }
+
+  // function fetchUser(email,password){
+  //   // event.preventDefault();
+  //   fetch("http://localhost:8081/api/users/login",
+  //       {//mode: 'cors',
+  //       method: "post",
+  //       headers: {
+  //            "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ email: email, password: password})
+  //        })
+  //   .then(response => response.json())
+  //   .then(json =>{ 
+  //       setUser({
+  //                           id: json.id,
+  //                           name: json.name,
+  //                           lastname: json.lastName,
+  //                           email: json.email,
+  //                               })
+  //               });
+        
+  //           };
+
 
   const addEvent = (description, organizer, date) => {
     let rowNumber = 0;
@@ -71,28 +107,35 @@ function App() {
       <header className="App-header">
         
         <BrowserRouter>
+          <UserContext.Provider value={{user,setUser}}>
+            <NavbarTop/>
 
-        <NavbarTop/>
-
-        <Routes>
-          {/* <Route path="/" element={<Layout />}> */}
-            {/* <Route index element={<Home />} /> */}
-            <Route exact path="" element={<HomePage events={events} />} />
-            {/* <Route exact path="login" element={<LogInForm/>} /> */}
-            <Route 
-              exact path="login" 
-              element={<LogIn 
-                              user={user} 
-                              setUser={(user)=>setUser(user)}
-                               />} />
-                            
-            <Route 
-              exact path="agenda" 
-                element={<Agenda 
-                              events={events} 
-                              addEvent={addEvent}
-                              deleteEvent={deleteEvent}/>} />
-        </Routes>
+            <Routes>
+                <Route index element={<HomePage/>} />
+                {/* <Route exact path="" element={<HomePage events={events} />} /> */}
+                <Route 
+                  exact path="login" 
+                  element={<LogIn 
+                                  // user={user}
+                                  // fetchUser={(email,password)=>fetchUser(email,password)}
+                                  // setUser={(user)=>setUser(user)}
+                                  />} />
+                {/* <Route 
+                  exact path="register" 
+                  element={<Register 
+                                  user={user} 
+                                  setUser={(user)=>setUser(user)}
+                                  />} />            */}
+                <Route 
+                  exact path="agenda" 
+                    element={<Agenda 
+                                  events={events} 
+                                  setEvents={setEvents}
+                                  addEvent={addEvent}
+                                  deleteEvent={deleteEvent}/>} />
+            </Routes>
+          </UserContext.Provider>
+        
       </BrowserRouter>
 
       </header>

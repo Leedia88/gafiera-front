@@ -1,20 +1,27 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import EventRowItem from "../EventRowItem"
 import NewEventForm from "../NewEventForm";
 import EventCard from "./EventCard";
 import Stack from 'react-bootstrap/Stack';
+import { UserContext } from "../LogIn/UserDetails";
 
 export default function Agenda(props){
-   
+    console.log(props);
+    const {user, setUser} = useContext(UserContext)
+
     const [showAddForm, setShowAddForm] = useState(false);
+
+    const images= []
 
     return(
         <>
+            <h2> Hello {user.name}</h2>
             <div className="mt-5 container">
-                <Stack direction="horizontal" gap={3}>
+                <Stack class="row" direction="horizontal" gap={3}>
                     {props.events.map(event => (
                                     <EventCard 
                                     key={event.id}
+                                    title={event.title}
                                     rowNumber={event.id}
                                     rowDate={event.date}
                                     rowDescription={event.description}

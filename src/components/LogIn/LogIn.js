@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Card, Col, Form, InputGroup, Nav, Row } from "react-bootstrap";
 import { Link  } from 'react-router-dom';
+import { UserContext } from "./UserDetails";
 
 export default function LogIn(props) {
+
+    const {user, setUser } = useContext(UserContext);
 
     const [inputs, setInputs] = useState({ email: "", password: "" })
 
@@ -14,17 +17,25 @@ export default function LogIn(props) {
 
     const handleSubmit = () => {
         // event.preventDefault();
-        alert(inputs);
-        fetch("http://localhost:8081/authenticate")
+        fetch("http://localhost:8081/api/users/login",
+            {//mode: 'cors',
+            method: "post",
+            headers: {
+                 "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: inputs.email, password: inputs.password})
+             })
         .then(response => response.json())
-        .then(json => props.setOwner({
-            name: json.name,
-            lastname: json.lastname,
-            email: json.email,
-            name: json.owner.name,
-            surname: json.owner.surname
-        }));
-    }
+        .then(json =>{ 
+            setUser({
+                                id: json.id,
+                                name: json.name,
+                                lastname: json.lastName,
+                                email: json.email,
+                                    })
+                    });
+            
+                };
 
     return (
         <>
@@ -73,7 +84,7 @@ export default function LogIn(props) {
                             className="btn bg-black w-100 text-white"
                             as={Link} to="/agenda" 
                             onClick={handleSubmit}
-                            // onClick={() => props.fetchOwner(inputs.login, fields.password)}
+                            // onClick={() => props.fetchUser(inputs.email, inputs.password)}
                         >
                             Connexion
                         </Nav.Link>

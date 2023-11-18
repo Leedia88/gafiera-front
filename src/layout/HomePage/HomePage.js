@@ -7,7 +7,7 @@ export default function HomePage(props) {
 
     return(
         <>
-            <ExploreEvents />
+            <ExploreEvents events={props.events}/>
             <CarouselEvents events={props.events}/>
         </>
     )

@@ -1,6 +1,13 @@
 import { Button, Container, Nav, Navbar, NavLink, NavDropdown } from "react-bootstrap";
+import { UserContext } from "../../components/LogIn/UserDetails";
+import { useContext } from "react";
 
 export default function NavbarTop() {
+
+    const {user, setUser } = useContext(UserContext);
+    // function userName(){
+    //   return user !== null ? `${user.name} ${user.lastName}` : "" ;
+    // }
 
     return (
         <div>
@@ -10,7 +17,7 @@ export default function NavbarTop() {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link href="/home">Home</Nav.Link>
+                  {/* <Nav.Link href="/home">Home</Nav.Link> */}
                   <Nav.Link href="/agenda">Agenda</Nav.Link>
                   <NavDropdown title="My Space" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">My Events</NavDropdown.Item>
@@ -26,7 +33,8 @@ export default function NavbarTop() {
                   
                 </Nav>
                 <Nav>
-                <Nav.Link href="/login">
+                {user !== null ? `${user.name} ${user.lastName}` : "" }
+                  <Nav.Link href="/login">
                     <Button variant="primary">
                         Log In
                       </Button>
