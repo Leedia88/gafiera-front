@@ -3,12 +3,11 @@ import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import './App.css';
 import Agenda from './components/Agenda/Agenda';
-import LogInForm from './components/LogIn/LogInForm';
 import LogIn from './components/LogIn/LogIn';
-import NewEventForm from './components/NewEventForm';
 import NavbarTop from './layout/HeaderAndFooter/NavbarTop';
 import HomePage from './layout/HomePage/HomePage';
 import { UserContext, UserProvider } from './components/LogIn/UserDetails';
+import MyEvents from './components/mySpace/MyEvents';
 
 
 
@@ -32,75 +31,50 @@ function App() {
 
   const [user, setUser] = useState([]);
 
-  const [events, setEvents] = useState(null)
-    useEffect(() => {fetchEvents()}, [])
+  // const [events, setEvents] = useState(null)
+  //   useEffect(() => {fetchEvents()}, [])
 
   const isConnected = user !== null;
   
   const backUrl = "http://localhost:8081/api/events";
 
-  async function fetchEvents(){
-    fetch("http://localhost:8081/api/events",
-    // {mode: 'no-cors'} 
-  //   {method: "GET",
-  //   headers : {
-  //     'Access-Control-Allow-Origin': '*'
-  //     }
+  // async function fetchEvents(){
+  //   fetch("http://localhost:8081/api/events",
+  //   // {mode: 'no-cors'} 
+  // //   {method: "GET",
+  // //   headers : {
+  // //     'Access-Control-Allow-Origin': '*'
+  // //     }
+  // // }
+  // )
+  //       .then(response =>response.json())
+  //       .then(data => {
+  //           // setEvents(data.message)
+  //           console.log(data);
+  //           setEvents(data)
+  //       })
   // }
-  )
-        .then(response =>response.json())
-        .then(data => {
-            // setEvents(data.message)
-            console.log(data);
-            setEvents(data)
-        })
-  }
-
-  // function fetchUser(email,password){
-  //   // event.preventDefault();
-  //   fetch("http://localhost:8081/api/users/login",
-  //       {//mode: 'cors',
-  //       method: "post",
-  //       headers: {
-  //            "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({ email: email, password: password})
-  //        })
-  //   .then(response => response.json())
-  //   .then(json =>{ 
-  //       setUser({
-  //                           id: json.id,
-  //                           name: json.name,
-  //                           lastname: json.lastName,
-  //                           email: json.email,
-  //                               })
-  //               });
-        
-  //           };
 
 
-  const addEvent = (description, organizer, date) => {
-    let rowNumber = 0;
-
-    if (events.length > 0){
-        rowNumber = events[events.length + 1].rowNumber + 1;
-    } else{
-        rowNumber = 1;
-    }
-        const newEvent = {
-            rowDescription : description,
-            rowDate : date,
-            rowOrganizer : organizer
-        }
-        setEvents(events => [...events, newEvent])
-      }
+  //   if (events.length > 0){
+  //       rowNumber = events[events.length + 1].rowNumber + 1;
+  //   } else{
+  //       rowNumber = 1;
+  //   }
+  //       const newEvent = {
+  //           rowDescription : description,
+  //           rowDate : date,
+  //           rowOrganizer : organizer
+  //       }
+  //       setEvents(events => [...events, newEvent])
+  //     }
   
-  const deleteEvent = (deleteEventRowNumber) => {
-        let filtered = events.filter(function(value){
-          return value.rowNumber != deleteEventRowNumber;
-        });
-        setEvents(filtered);
-      }
+  // const deleteEvent = (deleteEventRowNumber) => {
+  //       let filtered = events.filter(function(value){
+  //         return value.rowNumber != deleteEventRowNumber;
+  //       });
+  //       setEvents(filtered);
+  //     }
 
   return (
     <div className="App">
@@ -129,10 +103,16 @@ function App() {
                 <Route 
                   exact path="agenda" 
                     element={<Agenda 
-                                  events={events} 
-                                  setEvents={setEvents}
-                                  addEvent={addEvent}
-                                  deleteEvent={deleteEvent}/>} />
+                                  // events={events} 
+                                  // setEvents={setEvents}
+                                  // addEvent={addEvent}
+                                  // deleteEvent={deleteEvent}
+                                  />}
+                                   />
+                <Route 
+                  exact path="my-events" 
+                    element={<MyEvents/>}
+                                   />
             </Routes>
           </UserContext.Provider>
         
