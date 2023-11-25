@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import NewEventForm from "./NewEventForm";
 import EventRowItem from "../Agenda/EventRowItem";
@@ -7,6 +7,12 @@ import { UserContext } from "../LogIn/UserDetails";
 import { Container, Row } from "react-bootstrap";
 
 export default function MyEvents(props){
+
+    // const {user} = useContext(UserContext)
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // const back_url = "http://34.155.67.24:8081/api/events"
+    const back_url = "http://localhost:8081/api/events"
 
     const [showAddForm, setShowAddForm] = useState(false);
 
@@ -17,7 +23,7 @@ export default function MyEvents(props){
         let rowNumber = 0;}
 
         async function fetchEvents(){
-            fetch("http://localhost:8081/api/events",
+            fetch(back_url,
             // {mode: 'no-cors'} 
           //   {method: "GET",
           //   headers : {

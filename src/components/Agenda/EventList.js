@@ -3,11 +3,9 @@ import EventCard from "./EventCard";
 import EventRowItem from "./EventRowItem";
 import Stack from 'react-bootstrap/Stack';
 import { UserContext } from "../LogIn/UserDetails";
-import { Col, Container, Row } from "react-bootstrap";
+import {  Container, Row } from "react-bootstrap";
 
 export default function EventList(props){
-
-    console.log(props);
 
     return(
         <div className="agenda">
@@ -15,13 +13,12 @@ export default function EventList(props){
             <Container>
                 {/* <Stack class="row" direction="horizontal" gap={3}> */}
                 <Row xs={1}   md={2} xl={3} xxl={4}>
-                    {props.events.map(event => (
-                                    <Col>
+                    {props.events.map((event, i) => (
                                         <EventCard 
-                                        key={event.id}
-                                        event={event}
+                                            key={event.id}
+                                            id={event.id}
+                                            event={event}
                                         />
-                                    </Col>
                                     
                                 ))}
                 </Row>
@@ -29,7 +26,7 @@ export default function EventList(props){
                 {/* </Stack> */}
             </Container>
             
-            <div className="mt-5 container">
+            {/* <div className="mt-5 container">
                 <div className="card">
                     <div className="card-header">
                     Next Events
@@ -61,7 +58,7 @@ export default function EventList(props){
                     </div>
                 
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 

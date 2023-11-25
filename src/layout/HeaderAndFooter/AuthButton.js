@@ -5,13 +5,15 @@ import { UserContext } from "../../components/LogIn/UserDetails";
 
 function AuthButton(){
   
-    const {user, setUser } = useContext(UserContext);
+    // const {user, setUser } = useContext(UserContext);
+    const user = JSON.parse(localStorage.getItem("user"));
 
     const logOut = () => {
-        setUser(null)
+        localStorage.clear();
+        console.log("logout");
     }
 
-    if (user.name) {
+    if (user && user.name) {
       return(
         <>
         <Nav.Link href="/">
@@ -31,7 +33,7 @@ function AuthButton(){
               <Button variant="primary">
               Log In
               </Button>
-          </Nav.Link>)
+          </Nav.Link>
         </>)
         
     }

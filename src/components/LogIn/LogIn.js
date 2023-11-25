@@ -1,23 +1,24 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useFormContext} from "react";
 import { Container, Card, Col, Form, InputGroup, Nav, Row, Button } from "react-bootstrap";
 import { Link  } from 'react-router-dom';
 import { UserContext } from "./UserDetails";
 
 export default function LogIn(props) {
 
+    const back_url = "http://34.155.67.24:8081/api/users/login"
+    // const back_url = "http://localhost:8081/api/users/login"
+
     const {user, setUser } = useContext(UserContext);
 
     const [inputs, setInputs] = useState({ email: "", password: "" })
 
-    // const handleChange = (event) => {
-    //     const name = event.target.name;
-    //     const value = event.target.value;
-    //     setInputs(values => ({...values, [name]: value}))
-    // }
+    // const {register} = useFormContext()
+
+
 
     const handleSubmit = () => {
         // event.preventDefault();
-        fetch("http://localhost:8081/api/users/login",
+        fetch(back_url,
             {//mode: 'cors',
             method: "post",
             headers: {
@@ -27,37 +28,17 @@ export default function LogIn(props) {
              })
         .then(response => response.json())
         .then(json =>{ 
-            setUser({
-                                id: json.id,
-                                name: json.name,
-                                lastname: json.lastName,
-                                email: json.email,
-                                    })
+            const user = {
+                id: json.id,
+                name: json.name,
+                lastname: json.lastName,
+                email: json.email,
+                    }
+            localStorage.setItem("user", JSON.stringify(user))
+            setUser(user)
                     });
             
                 };
-    
-      // function fetchUser(email,password){
-  //   // event.preventDefault();
-  //   fetch("http://localhost:8081/api/users/login",
-  //       {//mode: 'cors',
-  //       method: "post",
-  //       headers: {
-  //            "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({ email: email, password: password})
-  //        })
-  //   .then(response => response.json())
-  //   .then(json =>{ 
-  //       setUser({
-  //                           id: json.id,
-  //                           name: json.name,
-  //                           lastname: json.lastName,
-  //                           email: json.email,
-  //                               })
-  //               });
-        
-  //           };
 
     return (
         <>
@@ -73,11 +54,13 @@ export default function LogIn(props) {
                             <InputGroup className="mb-3">
                                 <InputGroup.Text id="inpLogin"><i className="fa fa-user"></i></InputGroup.Text>
                                 <Form.Control 
+                                    required
                                     type="text"
                                     aria-describedby="inpLogin"
                                     placeholder="Please enter your email"
                                     value={inputs.email}
                                     onChange={form => setInputs({...inputs, email: form.target.value})}
+                                    
                                 />
                             </InputGroup>
                         </Col>
@@ -93,7 +76,7 @@ export default function LogIn(props) {
                                     type="text" 
                                     aria-describedby="inpPassword"
                                     placeholder="Please enter your password"
-
+                                    required
                                     value={inputs.password}
                                     onChange={form => setInputs({...inputs, password: form.target.value})}
                                 />

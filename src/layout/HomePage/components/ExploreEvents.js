@@ -3,10 +3,10 @@ import { Container, Button } from "react-bootstrap"
 
 export const ExploreEvents = () => {
     return(
-        <Container fluid="md" className='justify-content-center align-items-center'>
-            <h1>Find your next Gafiera Event</h1>
-            <p>What would you attend next?</p>
-            <Button variant="primary" href="/agenda">Explore next events</Button>
+        <Container fluid="md" className='p-5 justify-content-center align-items-center bg-light'>
+            <h1>Find your next Event</h1>
+            <p className="fs-4">What would you attend next?</p>
+            {/* <Button variant="primary" href="/agenda">Explore Next Events</Button> */}
         </Container>
     )
 }

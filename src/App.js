@@ -1,13 +1,15 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import './App.css';
 import Agenda from './components/Agenda/Agenda';
 import LogIn from './components/LogIn/LogIn';
 import NavbarTop from './layout/HeaderAndFooter/NavbarTop';
 import HomePage from './layout/HomePage/HomePage';
-import { UserContext, UserProvider } from './components/LogIn/UserDetails';
-import MyEvents from './components/mySpace/MyEvents';
+import { UserContext} from './components/LogIn/UserDetails';
+import MyEvents from './components/MySpace/MyEvents';
+import { UserProvider } from './components/LogIn/UserProvider';
+import MyProfile from './components/MySpace/MyProfile';
 
 
 
@@ -29,62 +31,24 @@ function App() {
   // ]
   //  )
 
-  const [user, setUser] = useState([]);
+
 
   // const [events, setEvents] = useState(null)
   //   useEffect(() => {fetchEvents()}, [])
 
-  const isConnected = user !== null;
   
   const backUrl = "http://localhost:8081/api/events";
 
-  // async function fetchEvents(){
-  //   fetch("http://localhost:8081/api/events",
-  //   // {mode: 'no-cors'} 
-  // //   {method: "GET",
-  // //   headers : {
-  // //     'Access-Control-Allow-Origin': '*'
-  // //     }
-  // // }
-  // )
-  //       .then(response =>response.json())
-  //       .then(data => {
-  //           // setEvents(data.message)
-  //           console.log(data);
-  //           setEvents(data)
-  //       })
-  // }
-
-
-  //   if (events.length > 0){
-  //       rowNumber = events[events.length + 1].rowNumber + 1;
-  //   } else{
-  //       rowNumber = 1;
-  //   }
-  //       const newEvent = {
-  //           rowDescription : description,
-  //           rowDate : date,
-  //           rowOrganizer : organizer
-  //       }
-  //       setEvents(events => [...events, newEvent])
-  //     }
-  
-  // const deleteEvent = (deleteEventRowNumber) => {
-  //       let filtered = events.filter(function(value){
-  //         return value.rowNumber != deleteEventRowNumber;
-  //       });
-  //       setEvents(filtered);
-  //     }
 
   return (
     <div className="App">
       <header className="App-header">
-        
         <BrowserRouter>
-          <UserContext.Provider value={{user,setUser}}>
+          <UserProvider>
             <NavbarTop/>
-
+            
             <Routes>
+            
                 <Route index element={<HomePage/>} />
                 {/* <Route exact path="" element={<HomePage events={events} />} /> */}
                 <Route 
@@ -113,8 +77,13 @@ function App() {
                   exact path="my-events" 
                     element={<MyEvents/>}
                                    />
+                <Route 
+                  exact path="my-profile" 
+                    element={<MyProfile/>}
+                                   />
+              
             </Routes>
-          </UserContext.Provider>
+            </UserProvider>
         
       </BrowserRouter>
 
