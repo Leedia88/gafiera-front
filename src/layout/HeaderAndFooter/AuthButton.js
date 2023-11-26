@@ -18,7 +18,7 @@ function AuthButton(){
         <>
         <Nav.Link href="/">
             <Button 
-                variant="primary"
+                variant="info"
                 onClick={logOut}
                 >
             Log Out
@@ -30,7 +30,7 @@ function AuthButton(){
       return( 
         <>
           <Nav.Link href="/login">
-              <Button variant="primary">
+              <Button variant="info">
               Log In
               </Button>
           </Nav.Link>

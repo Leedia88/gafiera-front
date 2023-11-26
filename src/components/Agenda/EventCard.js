@@ -25,13 +25,11 @@ export default function EventCard(props){
                     throw Error("Une erreur est survenue...")
                 }
                 return response.json;})
-            .then(data => console.log(data))
             .catch(err => console.log(err)); //récupérer les participants de l'event
     }
-    console.log(props);
     return (
         <Col key={props.id}>
-         <Card  className="p-2" style={{ width: '18rem' }}>
+         <Card  className="p-2 m-2" style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={random_url} />
                 <Card.Body>
                     <Card.Title>#{props.event.title}</Card.Title>
@@ -40,7 +38,7 @@ export default function EventCard(props){
                         {props.event.description}
                     </Card.Text>
                     {user && user.name &&
-                        <Button variant="primary"
+                        <Button variant="info"
                             onClick={enroll}>Register</Button>}
                 </Card.Body>
             </Card>

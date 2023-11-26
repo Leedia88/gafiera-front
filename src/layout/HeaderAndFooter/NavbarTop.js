@@ -6,8 +6,8 @@ import AuthButton from "./AuthButton";
 
 export default function NavbarTop() {
   
-    // const {user, setUser } = useContext(UserContext);
-    const user = JSON.parse(localStorage.getItem("user"));
+    const {user, setUser } = useContext(UserContext);
+    const user_storage = JSON.parse(localStorage.getItem("user"));
 
     return (
         <div>
@@ -26,7 +26,18 @@ export default function NavbarTop() {
                       <NavDropdown.Item href="my-events">My Events</NavDropdown.Item>
                       <NavDropdown.Item href="my-profile">My Profile</NavDropdown.Item>
                       {/* <NavDropdown.Item href="#action/3.3">My Contacts</NavDropdown.Item> */}
-                      <NavDropdown.Divider />
+                      {/* <NavDropdown.Divider /> */}
+                      {/* <NavDropdown.Item href="#action/3.4">
+                        Log Out
+                      </NavDropdown.Item> */}
+                    </NavDropdown>
+                  }
+                  {!user && user_storage &&
+                    <NavDropdown title="My Space" id="basic-nav-dropdown">
+                      <NavDropdown.Item href="my-events">My Events</NavDropdown.Item>
+                      <NavDropdown.Item href="my-profile">My Profile</NavDropdown.Item>
+                      {/* <NavDropdown.Item href="#action/3.3">My Contacts</NavDropdown.Item> */}
+                      {/* <NavDropdown.Divider /> */}
                       {/* <NavDropdown.Item href="#action/3.4">
                         Log Out
                       </NavDropdown.Item> */}

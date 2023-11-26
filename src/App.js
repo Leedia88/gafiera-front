@@ -33,12 +33,6 @@ function App() {
 
 
 
-  // const [events, setEvents] = useState(null)
-  //   useEffect(() => {fetchEvents()}, [])
-
-  
-  const backUrl = "http://localhost:8081/api/events";
-
 
   return (
     <div className="App">

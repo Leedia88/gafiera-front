@@ -14,7 +14,7 @@ export default function HomePage(props) {
                         <p>Samba de Gafieira is an energetic, super fun dance from Brazil! </p>
                         <p>Samba brought us together!</p>
                         <Nav.Link href="/login">
-                            <Button variant ="dark" className="btn btn-outline-light">
+                            <Button variant ="info" className="btn btn-outline-dark">
                             Log In
                             </Button>
                         </Nav.Link>

@@ -8,9 +8,8 @@ export default function Agenda(props){
 
     const user = JSON.parse(localStorage.getItem("user"));
 
-        console.log(user);
-    // const back_url = "http://34.155.67.24:8081/api/events"
-    const back_url = "http://localhost:8081/api/events"
+    // const back_url = "http://34.155.67.24:8081/"
+    const back_url = "http://localhost:8081/" 
 
     const [events, setEvents] = useState(null)
     useEffect(() => {fetchEvents()}, [])
@@ -18,14 +17,13 @@ export default function Agenda(props){
     const [error, setError] = useState(null);
 
     async function fetchEvents(){
-        fetch(back_url)
+        fetch(`${back_url}api/events`)
             .then((response) => {
                 if(!response.ok){
                     throw Error("Une erreur est survenue...")
                 }
                 return response.json();})
             .then(data => {
-                // setEvents(data.message)
                 setEvents(data)
             })
             .catch(err => {
