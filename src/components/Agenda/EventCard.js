@@ -11,8 +11,8 @@ export default function EventCard(props){
     
     const random_url = `https://picsum.photos/150/100?random=${props.event.id}`;
 
-    // const back_url = "http://34.155.67.24:8081/api/events/"
-    const back_url = "http://localhost:8081/api/events/"
+    const back_url = "http://34.155.67.24:8081/api/events/"
+    // const back_url = "http://localhost:8081/api/events/"
     
 
     const enroll = () => { 

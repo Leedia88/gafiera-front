@@ -8,8 +8,8 @@ export default function Agenda(props){
 
     const user = JSON.parse(localStorage.getItem("user"));
 
-    // const back_url = "http://34.155.67.24:8081/"
-    const back_url = "http://localhost:8081/" 
+    const back_url = "http://34.155.67.24:8081/"
+    // const back_url = "http://localhost:8081/" 
 
     const [events, setEvents] = useState(null)
     useEffect(() => {fetchEvents()}, [])
@@ -50,8 +50,6 @@ export default function Agenda(props){
             </Row>
             </div>
             
-         
-             
         </>
     )
 }

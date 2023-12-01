@@ -11,8 +11,8 @@ export default function MyEvents(props){
     // const {user, setUser} = useContext(UserContext)
     const user = JSON.parse(localStorage.getItem("user"));
 
-    // const back_url = "http://34.155.67.24:8081/"
-    const back_url = "http://localhost:8081/"
+    const back_url = "http://34.155.67.24:8081/"
+    // const back_url = "http://localhost:8081/"
 
     const [showAddForm, setShowAddForm] = useState(false);
 
