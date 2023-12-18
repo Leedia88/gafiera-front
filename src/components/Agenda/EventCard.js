@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 import { UserContext } from '../LogIn/UserDetails';
 
 export default function EventCard(props){
@@ -41,6 +42,10 @@ export default function EventCard(props){
                         <Button variant="info"
                             onClick={enroll}>Register</Button>}
                 </Card.Body>
+                <ListGroup className="list-group-flush">
+        <ListGroup.Item>{props.event.place}</ListGroup.Item>
+        <ListGroup.Item>{props.event.duration} h</ListGroup.Item>
+      </ListGroup>
             </Card>
         </Col>
        

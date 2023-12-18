@@ -29,13 +29,15 @@ export default function LogIn(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         fetch(back_url,
-            {//mode: 'cors',
+            {
+            mode: 'cors',
             method: "post",
             headers: {
                  "Content-Type": "application/json"
             },
             body: JSON.stringify({ email: inputs.email, password: inputs.password})
-             })
+    })
+            
         // .then(response => response.json())
         .then(response => response.text())
         .then(text =>{ 

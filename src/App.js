@@ -6,10 +6,9 @@ import Agenda from './components/Agenda/Agenda';
 import LogIn from './components/LogIn/LogIn';
 import NavbarTop from './layout/HeaderAndFooter/NavbarTop';
 import HomePage from './layout/HomePage/HomePage';
-import { UserContext} from './components/LogIn/UserDetails';
-import MyEvents from './components/MySpace/MyEvents';
+import MyEvents from './components/MyProfile/MyEvents';
 import { UserProvider } from './components/LogIn/UserProvider';
-import MyProfile from './components/MySpace/MyProfile';
+import MyProfile from './components/MyProfile/MyProfile';
 
 
 
@@ -30,8 +29,6 @@ function App() {
   //     }
   // ]
   //  )
-
-
 
 
   return (

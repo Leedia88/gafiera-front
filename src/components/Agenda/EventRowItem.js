@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 
 export default function EventRowItem(props){
 
+    console.log("je suis dans le eventrow")
+    
     const registerUser = () => {
         console.log("unregistered!!");
     }
